@@ -1,0 +1,7 @@
+{
+    "BaseDir": ".",
+    "EntryPoint": "CheatMod.Main",
+    "IsDevelopment": true,
+    "Name": "Cheat Mod",
+    "Project": "CheatMod.csproj"
+}
