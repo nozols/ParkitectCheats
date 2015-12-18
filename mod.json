@@ -1,5 +1,5 @@
 {
-    "BaseDir": ".",
+    "BaseDir": "",
     "EntryPoint": "CheatMod.Main",
     "IsDevelopment": true,
     "Name": "Cheat Mod",

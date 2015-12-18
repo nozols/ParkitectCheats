@@ -1,3 +1,3 @@
-# Your First Mod
+# Parkitect Cheat Mods
 
-In this `readme` you can explain what your mod has to offer.
+This mod adds cheats to Parkitect.
