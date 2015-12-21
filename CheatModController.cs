@@ -1,41 +1,41 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using CheatMod.windows;
+using CheatMod.Windows;
+using CheatMod.Reference;
 
 namespace CheatMod
 {
     class CheatModController : MonoBehaviour
     {
-        private List<CMWindow> windows = new List<CMWindow>();
+        public static List<CMWindow> windows = new List<CMWindow>();
 
         void Start()
         {
             Debug.Log("Started CheatModController");
-            windows.Add(new MainWindow(1));
+            windows.Add(new MainWindow(WindowIds.MainWindow));
+            windows.Add(new AdvancedWindow(WindowIds.AdvancedWindow));
+            windows.Add(new ConfirmWindow(WindowIds.ConfirmWindow));
+            windows.Add(new MessageWindow(WindowIds.MessageWindow));
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.C)) {
-                CMWindow window = windows.Find(x=> x.id == 1);
-                window.isOpen = !window.isOpen;
-                Debug.Log("Toggled window: " + window.isOpen);
+            if (Input.GetKeyDown(KeyCode.T)) {
+                CMWindow window = windows.Find(x=> x.id == WindowIds.MainWindow);
+                window.ToggleWindowState();
             }
         }
 
-        void OnGui()
+        void OnGUI()
         {
             windows.ForEach(delegate(CMWindow window){
-                Debug.Log(window);
-                Debug.Log(window.isOpen);
                 if (window.isOpen) {
                     window.DrawWindow();
-                    Debug.Log("Drawing window" + window.id);
                 }
             });
+        }
+
+        public static CMWindow getWindow(int id) {
+            return windows.Find(x => x.id == id);
         }
     }
 }

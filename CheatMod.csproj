@@ -68,7 +68,11 @@
     <Compile Include="CheatModController.cs" />
     <Compile Include="CMWindow.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="windows\MainWindow.cs" />
+    <Compile Include="Reference\WindowIds.cs" />
+    <Compile Include="Windows\AdvancedWindow.cs" />
+    <Compile Include="Windows\ConfirmWindow.cs" />
+    <Compile Include="Windows\MainWindow.cs" />
+    <Compile Include="Windows\MessageWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
