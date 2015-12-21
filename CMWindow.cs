@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CheatMod
 {
@@ -16,12 +12,10 @@ namespace CheatMod
         protected bool drawCloseButton = true;
         public Rect WindowRect = new Rect(20, 20, 200, 200);
         public Rect TitleBarRect = new Rect(0, 0, 200000000, 20);
-        public GUISkin skin = ScriptableObject.CreateInstance<GUISkin>();
 
         public CMWindow(int windowId)
         {
-            id = windowId;
-            skin.button.clipping = TextClipping.Clip;        
+            id = windowId;       
         }
 
         public void ToggleWindowState()
@@ -46,7 +40,6 @@ namespace CheatMod
 
         public void DrawMain(int windowId)
         {
-            //GUI.skin = skin;
             if (drawCloseButton)
             {
                 if (GUI.Button(new Rect(WindowRect.width - 18, 2, 15, 15), "X"))

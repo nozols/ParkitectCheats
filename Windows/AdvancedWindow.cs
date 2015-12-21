@@ -1,8 +1,4 @@
 ﻿using CheatMod.Reference;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace CheatMod.Windows
@@ -93,7 +89,6 @@ namespace CheatMod.Windows
                     {
                         confirmSpeed(true);
                     }
-                    Time.timeScale = value;
                 }
                 else
                 {
