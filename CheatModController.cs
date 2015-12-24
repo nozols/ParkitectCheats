@@ -19,9 +19,9 @@ namespace CheatMod
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.T)) {
-                CMWindow window = windows.Find(x=> x.id == WindowIds.MainWindow);
-                window.ToggleWindowState();
+            if (Input.GetKeyDown(KeyCode.T) || (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))) {
+                Debug.Log("Toggled Cheatmod window");
+                getWindow(WindowIds.MainWindow).ToggleWindowState();
             }
         }
 
