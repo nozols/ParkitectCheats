@@ -12,6 +12,7 @@ namespace CheatMod
         void Start()
         {
             Debug.Log("Started CheatModController");
+            //SkinCreator.ApplyStylesToSkin();
             windows.Add(new MainWindow(WindowIds.MainWindow));
             windows.Add(new AdvancedWindow(WindowIds.AdvancedWindow));
             windows.Add(new ConfirmWindow(WindowIds.ConfirmWindow));
@@ -21,12 +22,16 @@ namespace CheatMod
         void Update() {
             if (Input.GetKeyDown(KeyCode.T) || (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))) {
                 Debug.Log("Toggled Cheatmod window");
-                getWindow(WindowIds.MainWindow).ToggleWindowState();
+                CMWindow window = getWindow(WindowIds.MainWindow);
+                Debug.Log(window);
+                window.ToggleWindowState();
+                //gettWindow(WindowIds.MainWindow).ToggleWindowState();
             }
         }
 
         void OnGUI()
         {
+            //GUI.skin = SkinCreator.skin;
             windows.ForEach(delegate(CMWindow window){
                 if (window.isOpen) {
                     window.DrawWindow();
