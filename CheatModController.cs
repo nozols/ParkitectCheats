@@ -9,7 +9,7 @@ namespace CheatMod
     {
         public static List<CMWindow> windows = new List<CMWindow>();
 
-        void Start()
+        void Awake()
         {
             Debug.Log("Started CheatModController");
             //SkinCreator.ApplyStylesToSkin();
