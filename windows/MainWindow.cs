@@ -58,25 +58,7 @@ namespace CheatMod.Windows
                 GameController.Instance.park.parkInfo.moneyTransaction(1000000, MonthlyTransactions.Transaction.WAGES);
             }
             GUILayout.EndHorizontal();
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Set speed 1x"))
-            {
-                Time.timeScale = 1;
-            }
-            if (GUILayout.Button("Set speed 5x"))
-            {
-                Time.timeScale = 5;
-            }
-            if (GUILayout.Button("Set speed 10x"))
-            {
-                Time.timeScale = 10;
-            }
-            if (GUILayout.Button("Set speed 15x"))
-            {
-                Time.timeScale = 15;
-            }
-            GUILayout.Label("Current speed: " + Time.timeScale);
-            GUILayout.EndHorizontal();
+            
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Rate cleanliness 1"))
             {
@@ -111,8 +93,14 @@ namespace CheatMod.Windows
             if (GUILayout.Button("Recalculate current ratings")) {
                 GameController.Instance.park.parkInfo.triggerRecalculateCurrentRatings();
             }
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Open advanced window")) {
                 CheatModController.getWindow(WindowIds.AdvancedWindow).OpenWindow();
+            }
+            if(GUILayout.Button("Open weather and time options"))
+            {
+                CheatModController.getWindow(WindowIds.WeatherWindow).OpenWindow();
             }
             GUILayout.EndHorizontal();
             

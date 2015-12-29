@@ -42,12 +42,15 @@ namespace CheatMod
         {
             if (drawCloseButton)
             {
-                if (GUI.Button(new Rect(WindowRect.width - 18, 2, 15, 15), "X"))
+                if (GUI.Button(new Rect(WindowRect.width - 21, 6, 15, 15), "x"))
                 {
                     CloseWindow();
                 }
             }
+            GUI.BeginGroup(new Rect(0, /*27*/0, WindowRect.width, WindowRect.height/* - 33*/));
             DrawContent();
+            
+            GUI.EndGroup();
             GUI.DragWindow(TitleBarRect);
         }
 

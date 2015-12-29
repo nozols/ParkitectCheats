@@ -8,13 +8,13 @@ namespace CheatMod.Windows
 {
     class MessageWindow : CMWindow
     {
-        public string message = "Wait what...";
+        public string message = "No message set";
 
         public MessageWindow(int windowId) : base(windowId)
         {
             windowName = "Cheat Mod Message";
             drawCloseButton = false;
-            WindowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 10);
+            WindowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 50);
         }
 
         public override void DrawContent()

@@ -154,7 +154,9 @@ namespace CheatMod.Windows
         {
             if (yn)
             {
+                float oldTimeScale = Time.timeScale;
                 Time.timeScale = parsedSpeed;
+                EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeScale, parsedSpeed);
             }
             return true;
         }
