@@ -32,5 +32,9 @@ namespace CheatMod
             _go = new GameObject();
             _go.AddComponent<CheatModController>();
         }
+
+        public string Identifier { get; set; }
+
+        public string Path { get; set; }
     }
 }
