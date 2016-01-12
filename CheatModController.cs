@@ -15,7 +15,6 @@ namespace CheatMod
         void Start()
         {
             Debug.Log("Started CheatModController");
-            //SkinCreator.ApplyStylesToSkin();
             _lightMoodController = FindObjectOfType<LightMoodController>();
 
             windows.Add(new MainWindow(WindowIds.MainWindow));
@@ -23,13 +22,11 @@ namespace CheatMod
             windows.Add(new ConfirmWindow(WindowIds.ConfirmWindow));
             windows.Add(new MessageWindow(WindowIds.MessageWindow));
             windows.Add(new WeatherWindow(WindowIds.WeatherWindow));
-
-            //StartCoroutine(UpdateTime());
         }
 
         void OnDestroy()
         {
-            //StopCoroutine(UpdateTime());
+            setLightIntensity(1.2F);
         }
 
         void Update() {
@@ -39,7 +36,6 @@ namespace CheatMod
                 CMWindow window = getWindow(WindowIds.MainWindow);
                 Debug.Log(window);
                 window.ToggleWindowState();
-                //gettWindow(WindowIds.MainWindow).ToggleWindowState();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -51,7 +47,6 @@ namespace CheatMod
 
         void OnGUI()
         {
-            //GUI.skin = SkinCreator.skin;
             windows.ForEach(delegate(CMWindow window){
                 if (window.isOpen) {
                     window.DrawWindow();

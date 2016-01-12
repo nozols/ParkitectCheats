@@ -1,4 +1,5 @@
 ﻿using CheatMod.Reference;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 namespace CheatMod.Windows
@@ -12,6 +13,8 @@ namespace CheatMod.Windows
         private int parsedSpeed = 1;
         private string cleanliness = "";
         private string priceSatisfaction = "";
+        private string setGuests = "";
+        private int parsedSetGuests = 0;
 
         public AdvancedWindow(int windowId) : base(windowId) {
             windowName = "Advanced Cheat Mod";
@@ -135,6 +138,36 @@ namespace CheatMod.Windows
                 }
             }
             GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Set amount of guests:");
+            setGuests = GUILayout.TextField(setGuests);
+            if (GUILayout.Button("Confirm"))
+            {
+                int value;
+                bool parsed = int.TryParse(setGuests, out value);
+                if (parsed)
+                {
+                    int guestAmount = GameController.Instance.park.getGuests().Count;
+                    parsedSetGuests = value - guestAmount;
+                    if (value > 200)
+                    {
+                        ConfirmWindow w = (ConfirmWindow)CheatModController.getWindow(WindowIds.ConfirmWindow);
+                        w.setCode(confirmSetGuests);
+                        w.message = "Spawning more than 200 guests can decrease performance!";
+                        w.OpenWindow();
+                    }
+                    else
+                    {
+                        confirmSetGuests(true);
+                    }
+                }
+                else {
+                    MessageWindow mw = (MessageWindow)CheatModController.getWindow(WindowIds.MessageWindow);
+                    mw.message = "Please enter a valid integer";
+                    mw.OpenWindow();
+                }
+            }
+            GUILayout.EndHorizontal();
         }
 
         bool confirmGuests(bool yn)
@@ -157,6 +190,37 @@ namespace CheatMod.Windows
                 float oldTimeScale = Time.timeScale;
                 Time.timeScale = parsedSpeed;
                 EventManager.Instance.RaiseOnTimeSpeedChanged(oldTimeScale, parsedSpeed);
+            }
+            return true;
+        }
+
+        bool confirmSetGuests(bool yn)
+        {
+
+            if (yn)
+            {
+                Debug.Log("confirmSetGuests");
+                Debug.Log(parsedSetGuests);
+                if (parsedSetGuests > 0)
+                {
+                    Debug.Log("adding guests");
+                    for (int i = 0; i < parsedSetGuests; i++)
+                    {
+                        
+                        GameController.Instance.park.spawnGuest();
+                        
+                    }
+                }
+                else {
+                    Debug.Log("Removing guests");
+                    ReadOnlyCollection<Guest> guestListReadOnly = GameController.Instance.park.getGuests();
+                    Guest[] guestList = new Guest[guestListReadOnly.Count];
+                    guestListReadOnly.CopyTo(guestList, 0);
+                    for(int i = 0; i < parsedSetGuests * -1; i++)
+                    {
+                        guestList[i].Kill();
+                    }
+                }
             }
             return true;
         }
