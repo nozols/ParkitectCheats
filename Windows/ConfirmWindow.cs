@@ -3,12 +3,17 @@ using UnityEngine;
 
 namespace CheatMod.Windows
 {
-    class ConfirmWindow : CMWindow
+
+   
+    public class ConfirmWindow : CMWindow
     {
-        private Func<bool, bool> fn;
+        public delegate void OnSignal(bool yn);
+        public event OnSignal Signal; 
+
+       // private Func<bool, bool> fn;
         public string message = "Please confirm";
 
-        public ConfirmWindow(int windowId) : base(windowId) {
+        public ConfirmWindow(CheatModController cheatController) : base(cheatController) {
             windowName = "Are you sure?";
             drawCloseButton = false;
             WindowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 50, 200, 100);
@@ -21,19 +26,27 @@ namespace CheatMod.Windows
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Yes")) {
-                fn(true);
+                Signal(true);
+                _clearInvocation ();
                 CloseWindow();
             }
             if (GUILayout.Button("No"))
             {
-                fn(false);
+                Signal(false);
+                _clearInvocation ();
                 CloseWindow();
             }
+          
             GUILayout.EndHorizontal();
         }
 
-        public void setCode(Func<bool, bool> fnp) {
-            fn = fnp;
+        private void _clearInvocation()
+        {
+            foreach (var invocation in Signal.GetInvocationList()) {
+                Signal -= invocation as OnSignal;
+            }
         }
+
+       
     }
 }

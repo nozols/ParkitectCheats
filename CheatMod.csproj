@@ -8,7 +8,6 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>ConsoleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -33,12 +32,9 @@
   <PropertyGroup>
     <RootNamespace>CheatMod</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\PARKITECT_MOD\pre-alpha 6a\Parkitect_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\Parkitect_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,10 +43,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\PARKITECT_MOD\pre-alpha 6a\Parkitect_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\Parkitect_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\PARKITECT_MOD\pre-alpha 6a\Parkitect_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\Parkitect_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,17 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
+    <Folder Include="Reference\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheatModController.cs" />
     <Compile Include="CMWindow.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Reference\WindowIds.cs" />
     <Compile Include="Windows\AdvancedWindow.cs" />
     <Compile Include="Windows\ConfirmWindow.cs" />
     <Compile Include="Windows\MainWindow.cs" />
     <Compile Include="Windows\MessageWindow.cs" />
     <Compile Include="Windows\WeatherWindow.cs" />
+    <Compile Include="WindowIdManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

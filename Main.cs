@@ -1,17 +1,54 @@
 ﻿using UnityEngine;
+using System;
+using System.IO;
 
 namespace CheatMod
 {
     public class Main : IMod
     {
         public GameObject _go;
+        public static  StreamWriter sw;
+        public string Identifier { get; set; }
 
-        public string Description
+
+        public void onEnabled()
         {
-            get
-            {
-                return "Cheats for Parkitect.";
-            }
+            sw = File.AppendText (this.Path + @"/mod.log");
+                
+            _go = new GameObject();
+            var modController = _go.AddComponent<CheatModController>();
+            modController.Load ();
+        }
+
+        public void onDisabled()
+        {
+            UnityEngine.Object.Destroy(_go);
+            sw.Close();
+        }
+
+
+        public static void Log(Exception e)
+        {
+ 
+            sw.WriteLine(e);
+            sw.Flush();
+
+        }
+
+        public static void Log(string value)
+        {
+
+            sw.WriteLine(value);
+            sw.Flush();
+
+        }
+
+        public static void Log(int value)
+        {
+
+            sw.WriteLine(value);
+            sw.Flush();
+
         }
 
         public string Name
@@ -22,19 +59,14 @@ namespace CheatMod
             }
         }
 
-        public void onDisabled()
+        public string Description
         {
-            UnityEngine.Object.Destroy(_go);
+            get
+            {
+                return "Cheats for Parkitect.";
+            }
         }
-
-        public void onEnabled()
-        {
-            _go = new GameObject();
-            _go.AddComponent<CheatModController>();
-        }
-
-        public string Identifier { get; set; }
-
+            
         public string Path { get; set; }
     }
 }
