@@ -34,7 +34,8 @@ namespace CheatMod
             if(_lightMoodController != null)
              _lightMoodController.keyLight.intensity = LightIntensityValue;
 
-            if (Input.GetKeyDown(KeyCode.T) || (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))) {
+
+            if (Input.GetKeyDown(Main.configuration.Openwindow)) {
                 Main.Log ("Toggled Cheatmod window");
 
                 CMWindow mainWindow = this.GetWindow<MainWindow>();

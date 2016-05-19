@@ -9,15 +9,22 @@ namespace CheatMod
         public GameObject _go;
         public static  StreamWriter sw;
         public string Identifier { get; set; }
-
+        public static Configuration configuration{ get; private set; }
 
         public void onEnabled()
         {
+            if (configuration == null) {
+                configuration = new Configuration ();
+                configuration.Load (Path);
+                configuration.Save (Path);
+            }
+
             sw = File.AppendText (this.Path + @"/mod.log");
                 
             _go = new GameObject();
             var modController = _go.AddComponent<CheatModController>();
             modController.Load ();
+
         }
 
         public void onDisabled()
@@ -68,5 +75,47 @@ namespace CheatMod
         }
             
         public string Path { get; set; }
+
+
+        #region Implementation of IModSettings
+
+        private bool FetchKey(out KeyCode outKey)
+        {
+            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode))) {
+                if (Input.GetKeyDown (key)) {
+                    outKey = key;
+                    return true;
+                }
+            }
+            outKey = KeyCode.A;
+            return false;
+        }
+
+        private bool openWindow;
+
+        public void onDrawSettingsUI()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Label ("Cheat Window Button:");
+            openWindow = GUILayout.Toggle (openWindow, configuration.Openwindow.ToString (), "Button"); 
+            if (openWindow) {
+                KeyCode key;
+                if (FetchKey (out key)) {
+                    configuration.Openwindow = key;
+                }
+            }
+            GUILayout.EndHorizontal();
+        }
+
+        public void onSettingsOpened()
+        {
+        }
+
+        public void onSettingsClosed()
+        {
+            configuration.Save (Path);
+        }
+
+        #endregion
     }
 }

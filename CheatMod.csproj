@@ -55,6 +55,7 @@
   <ItemGroup>
     <None Include="mod.json" />
     <None Include="README.md" />
+    <None Include="Config.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
@@ -70,6 +71,8 @@
     <Compile Include="Windows\MessageWindow.cs" />
     <Compile Include="Windows\WeatherWindow.cs" />
     <Compile Include="WindowIdManager.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Configuration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
