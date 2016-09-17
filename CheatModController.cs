@@ -22,6 +22,7 @@ namespace CheatMod
             windows.Add (new ConfirmWindow (this));
             windows.Add (new MessageWindow (this));
             windows.Add (new WeatherWindow (this));
+            windows.Add (new GlobalToggles (this));
         }
 
         void OnDestroy()
@@ -35,7 +36,7 @@ namespace CheatMod
              _lightMoodController.keyLight.intensity = LightIntensityValue;
 
 
-            if (Input.GetKeyDown(Main.configuration.Openwindow)) {
+            if (Input.GetKeyDown(Main.configuration.settings.openWindow)) {
                 Main.Log ("Toggled Cheatmod window");
 
                 CMWindow mainWindow = this.GetWindow<MainWindow>();

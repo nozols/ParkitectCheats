@@ -102,6 +102,11 @@ namespace CheatMod.Windows
             {
                 _controller.GetWindow<WeatherWindow> ().OpenWindow();
             }
+
+            if(GUILayout.Button("Open global toggles"))
+            {
+                _controller.GetWindow<GlobalToggles> ().OpenWindow();
+            }
             GUILayout.EndHorizontal();
             
         }

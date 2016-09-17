@@ -32,7 +32,7 @@ namespace CheatMod.Windows
                 bool parsed = int.TryParse(money, out value);
                 if (parsed)
                 {
-                    GameController.Instance.park.parkInfo.debugSetMoney(value);
+                    GameController.Instance.park.parkInfo.setMoney (value);
                 }
                 else
                 {

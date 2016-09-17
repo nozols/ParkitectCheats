@@ -4,7 +4,7 @@ using System.IO;
 
 namespace CheatMod
 {
-    public class Main : IMod
+    public class Main : IMod , IModSettings 
     {
         public GameObject _go;
         public static  StreamWriter sw;
@@ -14,9 +14,17 @@ namespace CheatMod
         public void onEnabled()
         {
             if (configuration == null) {
-                configuration = new Configuration ();
-                configuration.Load (Path);
-                configuration.Save (Path);
+                configuration = new Configuration (Path);
+                configuration.Load ();
+                configuration.Save ();
+            }
+
+            if (configuration.settings.debugBuildMode) {
+                Global.IS_RELEASE_BUILD = false;
+                ScriptableSingleton<DebugPreferences>.Instance.drawDebugUI = true;
+                //new GameObject ("Mod tools").AddComponent<DebugToolsMenu> ();
+            } else {
+                Global.IS_RELEASE_BUILD = true;
             }
 
             sw = File.AppendText (this.Path + @"/mod.log");
@@ -91,29 +99,19 @@ namespace CheatMod
             return false;
         }
 
-        private bool openWindow;
 
-        public void onDrawSettingsUI()
-        {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label ("Cheat Window Button:");
-            openWindow = GUILayout.Toggle (openWindow, configuration.Openwindow.ToString (), "Button"); 
-            if (openWindow) {
-                KeyCode key;
-                if (FetchKey (out key)) {
-                    configuration.Openwindow = key;
-                }
-            }
-            GUILayout.EndHorizontal();
+        public void onDrawSettingsUI() {
+            Main.configuration.DrawGUI ();
         }
 
-        public void onSettingsOpened()
-        {
-        }
+        public void onSettingsOpened() {
+            if (Main.configuration == null)
+                Main.configuration = new Configuration (this.Path);
+            Main.configuration.Load ();
 
-        public void onSettingsClosed()
-        {
-            configuration.Save (Path);
+        }
+        public void onSettingsClosed() {
+            Main.configuration.Save ();
         }
 
         #endregion
