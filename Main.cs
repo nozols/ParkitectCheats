@@ -20,11 +20,12 @@ namespace CheatMod
             }
 
             if (configuration.settings.debugBuildMode) {
-                Global.IS_RELEASE_BUILD = false;
+               // Global.IS_RELEASE_BUILD = false;
+				//Global.is
                 ScriptableSingleton<DebugPreferences>.Instance.drawDebugUI = true;
                 //new GameObject ("Mod tools").AddComponent<DebugToolsMenu> ();
             } else {
-                Global.IS_RELEASE_BUILD = true;
+                //Global.IS_RELEASE_BUILD = true;
             }
 
             sw = File.AppendText (this.Path + @"/mod.log");

@@ -121,14 +121,13 @@ namespace CheatMod
             Global.PERSON_HEADLOOK_ENABLED = GUILayout.Toggle(Global.PERSON_HEADLOOK_ENABLED,"PERSON_HEADLOOK_ENABLED");
             GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            Global.YARR = GUILayout.Toggle(Global.YARR,"YARR");
+           /* GUILayout.BeginHorizontal();
+			Global.YARR = GUILayout.Toggle(Global.YARR,"YARR");
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            Global.ALWAYS_SUNNY = GUILayout.Toggle(Global.ALWAYS_SUNNY,"ALWAYS_SUNNY");
-            GUILayout.EndHorizontal();
-
+			Global.ALWAYS_SUNNY = GUILayout.Toggle(Global.ALWAYS_SUNNY,"ALWAYS_SUNNY");
+            GUILayout.EndHorizontal();*/
 
             base.DrawContent ();
         }

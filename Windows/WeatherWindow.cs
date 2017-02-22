@@ -21,7 +21,7 @@ namespace CheatMod.Windows
             GUILayout.BeginHorizontal();
             if(GUILayout.Button("Toggle rain"))
             {
-                WeatherController.Instance.debugToggleRain();
+                GameController.Instance.park.weatherController.debugToggleRain();
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
