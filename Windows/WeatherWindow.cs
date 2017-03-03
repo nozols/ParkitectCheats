@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace CheatMod.Windows
 {
-    class WeatherWindow : CMWindow
+    public class WeatherWindow : CMWindow
     {
         private float sliderValue = 1.2F;
         private float previousSliderValue = 1.2F;
 
-        public WeatherWindow(int windowId) : base(windowId) {
+        public WeatherWindow(CheatModController cheatController) : base(cheatController) {
             windowName = "Cheat Mod Weather And Time Control";
             WindowRect = new Rect(620, 20, 400, 200);
         }
@@ -21,7 +21,7 @@ namespace CheatMod.Windows
             GUILayout.BeginHorizontal();
             if(GUILayout.Button("Toggle rain"))
             {
-                WeatherController.Instance.debugToggleRain();
+                GameController.Instance.park.weatherController.debugToggleRain();
             }
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
@@ -30,7 +30,7 @@ namespace CheatMod.Windows
             if(sliderValue != previousSliderValue)
             {
                 previousSliderValue = sliderValue;
-                CheatModController.setLightIntensity(sliderValue);
+                _controller.setLightIntensity(sliderValue);
             }
             if(GUILayout.Button("Reset"))
             {

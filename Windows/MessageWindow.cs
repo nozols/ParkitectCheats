@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace CheatMod.Windows
 {
-    class MessageWindow : CMWindow
+    public class MessageWindow : CMWindow
     {
         public string message = "No message set";
 
-        public MessageWindow(int windowId) : base(windowId)
+        public MessageWindow(CheatModController cheatController) : base(cheatController)
         {
             windowName = "Cheat Mod Message";
             drawCloseButton = false;

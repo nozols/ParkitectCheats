@@ -1,27 +1,28 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using CheatMod.Windows;
-using CheatMod.Reference;
 using System.Collections;
-
 namespace CheatMod
 {
-    class CheatModController : MonoBehaviour
+    public class CheatModController : MonoBehaviour
     {
-        public static List<CMWindow> windows = new List<CMWindow>();
-        private static LightMoodController _lightMoodController;
-        private static float LightIntensityValue = 1.2F;
+        private LightMoodController _lightMoodController;
+        private float LightIntensityValue = 1.2F;
 
-        void Start()
+        public List<CMWindow> windows = new List<CMWindow>();
+
+        public void Load()
         {
-            Debug.Log("Started CheatModController");
-            _lightMoodController = FindObjectOfType<LightMoodController>();
+            Main.Log ("Started CheatModController");
 
-            windows.Add(new MainWindow(WindowIds.MainWindow));
-            windows.Add(new AdvancedWindow(WindowIds.AdvancedWindow));
-            windows.Add(new ConfirmWindow(WindowIds.ConfirmWindow));
-            windows.Add(new MessageWindow(WindowIds.MessageWindow));
-            windows.Add(new WeatherWindow(WindowIds.WeatherWindow));
+            _lightMoodController = FindObjectOfType<LightMoodController>();
+             
+            windows.Add (new MainWindow (this));
+            windows.Add (new AdvancedWindow (this));
+            windows.Add (new ConfirmWindow (this));
+            windows.Add (new MessageWindow (this));
+            windows.Add (new WeatherWindow (this));
+            windows.Add (new GlobalToggles (this));
         }
 
         void OnDestroy()
@@ -30,41 +31,60 @@ namespace CheatMod
         }
 
         void Update() {
-            _lightMoodController.keyLight.intensity = LightIntensityValue;
-            if (Input.GetKeyDown(KeyCode.T) || (Input.GetKeyDown(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.T))) {
-                Debug.Log("Toggled Cheatmod window");
-                CMWindow window = getWindow(WindowIds.MainWindow);
-                Debug.Log(window);
-                window.ToggleWindowState();
+           
+            if(_lightMoodController != null)
+             _lightMoodController.keyLight.intensity = LightIntensityValue;
+
+
+            if (Input.GetKeyDown(Main.configuration.settings.openWindow)) {
+                Main.Log ("Toggled Cheatmod window");
+
+                CMWindow mainWindow = this.GetWindow<MainWindow>();
+                Main.Log(mainWindow.ToString());
+                mainWindow.ToggleWindowState();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                windows.ForEach(delegate(CMWindow window){
-                    window.CloseWindow();
-                });
+                foreach (CMWindow window in windows) {
+                    if (window.isOpen) {
+                        window.CloseWindow ();
+                    }
+                }
             }
+        }
+
+        public T GetWindow<T>() where T : CMWindow
+        {
+            foreach (CMWindow window in windows) {
+        
+                if (window is T) {
+                    return (T)window;
+                
+                }
+            }
+           
+            return null;
         }
 
         void OnGUI()
         {
-            windows.ForEach(delegate(CMWindow window){
+            foreach (CMWindow window in windows) {
                 if (window.isOpen) {
-                    window.DrawWindow();
+                    window.DrawWindow ();
                 }
-            });
+            }
         }
 
-        public static CMWindow getWindow(int id) {
-            return windows.Find(x => x.id == id);
-        }
 
-        public static void setLightIntensity(float intensity)
+        public void setLightIntensity(float intensity)
         {
+    
             LightIntensityValue = intensity;
         }
 
         private IEnumerator UpdateTime()
         {
+            if (_lightMoodController != null)
             for (;;) { 
                 _lightMoodController.keyLight.intensity = LightIntensityValue;
 
